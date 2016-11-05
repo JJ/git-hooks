@@ -3,6 +3,8 @@
 use strict;
 use warnings;
 
+use Git;
+
 use File::Slurp::Tiny qw(read_file write_file);
 
 use v5.14;
@@ -10,7 +12,11 @@ use v5.14;
 my $commit_msg_fn = shift || die "No commit message file";
 my $commit_msg = read_file( $commit_msg_fn );
 die if !$commit_msg;
-my $diff_output = `git diff-index HEAD --cached -p`;
+
+my $repo = Git->repository();
+
+my $diff_output = $repo->command('diff-index', '--cached','-p','HEAD');
+
 my @lines_changed = ($diff_output =~ /-\d+,(\d+) \+\d*,?(\d+)/gs);
 
 my ($lines_added, $lines_taken);
