@@ -1,0 +1,5 @@
+#!/bin/sh
+
+lines_changed=$(git diff-index HEAD --cached -p | grep "^\+\w" | wc -l)
+message="\nYou have changed $lines_changed lines"
+grep -qs "^$message" "$1" || echo "$message" >> "$1"
