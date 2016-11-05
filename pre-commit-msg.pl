@@ -28,5 +28,4 @@ foreach my $file ( @files_changed ) {
     }
 }
 
-say "Syntax is $syntax_ok";
 exit $syntax_ok;
