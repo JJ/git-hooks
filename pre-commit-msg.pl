@@ -20,6 +20,7 @@ say @files_changed;
 
 my $syntax_ok = 0;
 foreach my $file ( @files_changed ) {
+    say "Checking $file\n";
     my $file_content = read_file( $file );
     my $document = PPI::Document->new( $file_content );
     if ($document->errstr) {
