@@ -9,5 +9,4 @@ COMMIT_MSG {
     return 0;
 };
 
-
 run_hook($0, @ARGV);
