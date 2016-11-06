@@ -14,28 +14,28 @@ use Data::Dumper;
 use v5.14;
 
 #Retrieve configuration
-my $git = Git::More->repository();
-my $api_key = $git->get_config( 'github','apikey' );
+# my $git = Git::More->repository();
+# my $api_key = $git->get_config( 'github','apikey' );
 
-my $gh = Net::GitHub->new(
-    version => 3,
-    access_token => $api_key
-);
-my $repos = $gh->repos;
-my $origin = $git->get_config( 'remote.origin','url' );
-my ( $user, $repo ) = ($origin =~ m{:(.+?)/(.+)\.git});
-my $issue = $gh->issue();
-my @these_issues = $issue->repos_issues( $user, $repo, { state => 'open'} );
+# my $gh = Net::GitHub->new(
+#     version => 3,
+#     access_token => $api_key
+# );
+# my $repos = $gh->repos;
+# my $origin = $git->get_config( 'remote.origin','url' );
+# my ( $user, $repo ) = ($origin =~ m{:(.+?)/(.+)\.git});
+# my $issue = $gh->issue();
+# my @these_issues = $issue->repos_issues( $user, $repo, { state => 'open'} );
 
-my %issues_map;
-for my $i ( @these_issues ) {
-  $issues_map{$i->{'number'}} = $i->{'title'};
-}
+# my %issues_map;
+# for my $i ( @these_issues ) {
+#   $issues_map{$i->{'number'}} = $i->{'title'};
+# }
 
 COMMIT_MSG {
     my ($git, $commit_msg_file) = @_;
     
-    return 1;
+    return 0;
     # my $commit_msg = read_file( $commit_msg_file );
     
     # my @issues = ($commit_msg =~ /\#(\d+)/g);
