@@ -23,11 +23,10 @@ my $gh = Net::GitHub->new(
 );
 my $repos = $gh->repos;
 my $origin = $git->get_config( 'remote.origin','url' );
-my ( $repo, $user ) = ($origin =~ m{:(.+?)/(.+)\.git});
+my ( $user, $repo ) = ($origin =~ m{:(.+?)/(.+)\.git});
 say "Origin $origin $repo $user";
 my $issue = $gh->issue();
-$issue->set_default_user_repo($user, $repo);
-my @these_issues = $issue->issues( state => 'open' );
+my @these_issues = $issue->repos_issues( $user, $repo );
 foreach my $i (@these_issues) {
   say Dumper($i);
 }
