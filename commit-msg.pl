@@ -25,8 +25,8 @@ my $repos = $gh->repos;
 my $origin = $git->get_config( 'remote.origin','url' );
 my ( $repo, $user ) = ($origin =~ m{:(.+?)/(.+)\.git});
 say "Origin $origin $repo $user";
+$gh->set_default_user_repo('fayland', 'perl-net-github');
 my $issues = $gh->issue;
-$issues->set_default_user_repo('fayland', 'perl-net-github');
 
 my @these_issues = $issues->issues( state => 'open' );
 foreach my $i (@these_issues) {
