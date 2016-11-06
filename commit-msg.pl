@@ -52,8 +52,8 @@ COMMIT_MSG {
 	  $addresses_issue ||= 1;
 	}
       }
+      return $addresses_issue;
     }
-    return 1;
 
 };
 
