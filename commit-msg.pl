@@ -24,17 +24,35 @@ my $gh = Net::GitHub->new(
 my $repos = $gh->repos;
 my $origin = $git->get_config( 'remote.origin','url' );
 my ( $user, $repo ) = ($origin =~ m{:(.+?)/(.+)\.git});
-say "Origin $origin $repo $user";
 my $issue = $gh->issue();
 my @these_issues = $issue->repos_issues( $user, $repo, { state => 'open'} );
 
+my %issues_map;
+for my $i ( @these_issues ) {
+  $issues_map{$i->{'number'}} = $i->{'title'};
+}
 
 COMMIT_MSG {
     my ($git, $commit_msg_file) = @_;
     
     my $commit_msg = read_file( $commit_msg_file );
-    say $commit_msg_file;
     
+    my @issues = ($commit_msg =~ /\#(\d+)/g);
+
+    if ( !@issues ) {
+      say "This commit should address at least one issue";
+      return 1;
+    } else {
+      my $addresses_issue = 0;
+      for my $i ( @issues ) {
+	if ( $issues_map{$i} ) {
+	  say "Addresses issue $i: $issues_map{$i}";
+	} else {
+	  say "There is no issue $i";
+	  $addresses_issue ||= 1;
+	}
+      }
+    }
     return 1;
 
 };
