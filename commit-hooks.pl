@@ -35,7 +35,7 @@ PRE_COMMIT {
     my $syntax_ok = 0;
     foreach my $file ( @files_changed ) {
 	next if ( $file !~ /\.p[ml]/ );
-	print "Checking syntax";
+	print "Checking syntax\n";
 	my $output = `perl -cw $file 2>&1`;
 	if ($output =~ /syntax error/ ) {
 	    $syntax_ok = $syntax_ok || 1;
@@ -103,10 +103,10 @@ COMMIT_MSG {
       my $addresses_issue = 1;
       for my $i ( @issues ) {
     	if ( $issues_map{$i} ) {
-    	  say "Addresses issue $i: $issues_map{$i}";
+    	  say pass("Addresses issue $i: $issues_map{$i}");
     	  $addresses_issue &&= 1;
     	} else {
-    	  say "There is no issue $i";
+    	  say fail("There is no issue $i");
     	  $addresses_issue &&= 0;
     	}
       }
