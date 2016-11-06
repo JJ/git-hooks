@@ -54,7 +54,6 @@ COMMIT_MSG {
     	}
       }
       return $addresses_issue;
-      
     }
 };
 
