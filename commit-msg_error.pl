@@ -7,7 +7,7 @@ use Git::Hooks;
 
 COMMIT_MSG {
     my ($git, $commit_msg_file) = @_;
-    return 1;
+    return 0;
 };
 
 
