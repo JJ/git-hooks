@@ -35,26 +35,27 @@ for my $i ( @these_issues ) {
 COMMIT_MSG {
     my ($git, $commit_msg_file) = @_;
     
-    my $commit_msg = read_file( $commit_msg_file );
+    return 0;
+    # my $commit_msg = read_file( $commit_msg_file );
     
-    my @issues = ($commit_msg =~ /\#(\d+)/g);
+    # my @issues = ($commit_msg =~ /\#(\d+)/g);
 
-    if ( !@issues ) {
-      say "This commit should address at least one issue";
-      return 0;
-    } else {
-      my $addresses_issue = 1;
-      for my $i ( @issues ) {
-    	if ( $issues_map{$i} ) {
-    	  say "Addresses issue $i: $issues_map{$i}";
-	  $addresses_issue &&= 1;
-    	} else {
-    	  say "There is no issue $i";
-    	  $addresses_issue &&= 0;
-    	}
-      }
-      return $addresses_issue;
-    }
+    # if ( !@issues ) {
+    #   say "This commit should address at least one issue";
+    #   return 0;
+    # } else {
+    #   my $addresses_issue = 1;
+    #   for my $i ( @issues ) {
+    # 	if ( $issues_map{$i} ) {
+    # 	  say "Addresses issue $i: $issues_map{$i}";
+    # 	  $addresses_issue &&= 1;
+    # 	} else {
+    # 	  say "There is no issue $i";
+    # 	  $addresses_issue &&= 0;
+    # 	}
+    #   }
+    #   return $addresses_issue;
+    # }
 };
 
 
