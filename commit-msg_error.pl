@@ -5,7 +5,7 @@ use warnings;
 use Git::Hooks;
 
 COMMIT_MSG {
-    print "Ready to fail\n";
+    print "This should fail\n";
     return 0;
 };
 
