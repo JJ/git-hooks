@@ -40,22 +40,23 @@ COMMIT_MSG {
     my @issues = ($commit_msg =~ /\#(\d+)/g);
     my $addresses_issue = 0;
 
-    if ( !@issues ) {
-      say "This commit should address at least one issue";
-      return 0;
-    } else {
-      for my $i ( @issues ) {
-	if ( $issues_map{$i} ) {
-	  say "Addresses issue $i: $issues_map{$i}";
-	} else {
-	  say "There is no issue $i";
-	  $addresses_issue ||= 1;
-	}
-	say "Correct $addresses_issue";
-      }
-    }
-    say "Final $addresses_issue";
-    return $addresses_issue != 0;
+    return 0;
+    # if ( !@issues ) {
+    #   say "This commit should address at least one issue";
+    #   return 0;
+    # } else {
+    #   for my $i ( @issues ) {
+    # 	if ( $issues_map{$i} ) {
+    # 	  say "Addresses issue $i: $issues_map{$i}";
+    # 	} else {
+    # 	  say "There is no issue $i";
+    # 	  $addresses_issue ||= 1;
+    # 	}
+    # 	say "Correct $addresses_issue";
+    #   }
+    # }
+    # say "Final $addresses_issue";
+    # return $addresses_issue != 0;
 };
 
 
