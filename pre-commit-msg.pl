@@ -4,8 +4,7 @@ use strict;
 use warnings;
 
 use Git;
-
-use File::Slurp::Tiny qw(read_file write_file);
+use Term::ANSIColor;
 
 use v5.14;
 
@@ -23,9 +22,10 @@ foreach my $file ( @files_changed ) {
   my $output = `perl -cw $file 2>&1`;
   if ($output =~ /syntax error/ ) {
     $syntax_ok = $syntax_ok || 1;
-    say "✗\n\tThere's an error in $file: \n\t", $output;
+    say color("red"), "✗", color("reset"), "\n\tThere's an error in $file:", color("red"),
+      join("",map( "\n\t$_", split("\n",$output))), color("reset");
   } else {
-    say "✓";
+    say color("green"),"✓", color("reset");
   }
 }
 
