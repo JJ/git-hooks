@@ -25,9 +25,8 @@ my $repos = $gh->repos;
 my $origin = $git->get_config( 'remote.origin','url' );
 my ( $repo, $user ) = ($origin =~ m{:(.+?)/(.+)\.git});
 say "Origin $origin $repo $user";
-$gh->set_default_user_repo('fayland', 'perl-net-github');
 my $issue = $gh->issue();
-
+$issue->set_default_user_repo($user, $repo);
 my @these_issues = $issue->issues( state => 'open' );
 foreach my $i (@these_issues) {
   say Dumper($i);
