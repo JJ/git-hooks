@@ -51,6 +51,7 @@ COMMIT_MSG {
 	  say "There is no issue $i";
 	  $addresses_issue ||= 1;
 	}
+	say "Correct $addresses_issue";
       }
       return $addresses_issue;
     }
