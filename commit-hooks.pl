@@ -82,7 +82,6 @@ COMMIT_MSG {
 	version => 3,
 	access_token => $api_key
 	);
-    my $repos = $gh->repos;
     my $origin = $git_repo->get_config( 'remote.origin','url' );
     my ( $user, $repo ) = ($origin =~ m{:(.+?)/(.+)\.git});
     my $issue = $gh->issue();
