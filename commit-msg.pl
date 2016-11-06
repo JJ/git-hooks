@@ -26,10 +26,8 @@ my $origin = $git->get_config( 'remote.origin','url' );
 my ( $user, $repo ) = ($origin =~ m{:(.+?)/(.+)\.git});
 say "Origin $origin $repo $user";
 my $issue = $gh->issue();
-my @these_issues = $issue->repos_issues( $user, $repo );
-foreach my $i (@these_issues) {
-  say Dumper($i);
-}
+my @these_issues = $issue->repos_issues( $user, $repo, { state => 'open'} );
+
 
 COMMIT_MSG {
     my ($git, $commit_msg_file) = @_;
