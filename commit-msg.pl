@@ -9,6 +9,7 @@ use Term::ANSIColor;
 use File::Slurp::Tiny qw(read_file write_file);
 use Net::GitHub;
 use Git::More;
+use Data::Dumper;
 
 use v5.14;
 
@@ -22,7 +23,9 @@ my $gh = Net::GitHub->new(
 );
 my @issues = $gh->issue->issues();
 
-say @issues;
+foreach my $i (@issues) {
+  say Dumper($i);
+}
 
 COMMIT_MSG {
     my ($git, $commit_msg_file) = @_;
