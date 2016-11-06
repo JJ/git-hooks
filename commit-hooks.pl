@@ -17,6 +17,16 @@ sub diff_output {
     $git->command('diff-index', '--cached','-p','HEAD');
 }
 
+sub fail {
+    my $message = shift;
+    return color("red")."✗ ".color("reset").$message;
+}
+
+sub pass {
+    my $message = shift;
+    return color("green")."✓ ".color("reset").$message;
+}
+
 PRE_COMMIT {
     my ($git) = @_;
 
@@ -25,14 +35,14 @@ PRE_COMMIT {
     my $syntax_ok = 0;
     foreach my $file ( @files_changed ) {
 	next if ( $file !~ /\.p[ml]/ );
-	print "Checking $file  ";
+	print "Checking syntax";
 	my $output = `perl -cw $file 2>&1`;
 	if ($output =~ /syntax error/ ) {
 	    $syntax_ok = $syntax_ok || 1;
-	    say color("red"), "✗", color("reset"), "\n\tThere's an error in $file:", color("red"),
+	    say "\t",fail( $file), color("red"),
 	    join("",map( "\n\t$_", split("\n",$output))), color("reset");
 	} else {
-	    say color("green"),"✓", color("reset");
+	    say "\t",pass( $file );
 	}
     }
     return $syntax_ok;
