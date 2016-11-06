@@ -53,7 +53,7 @@ COMMIT_MSG {
 	say "Correct $addresses_issue";
       }
     }
-
+    say "Final $addresses_issue";
     return $addresses_issue;
 };
 
