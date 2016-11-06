@@ -21,6 +21,11 @@ my $gh = Net::GitHub->new(
     version => 3,
     access_token => $api_key
 );
+my $repos = $gh->repos;
+my $origin = $git->get_config( 'remote.origin','url' );
+my ( $repo, $user ) = ($origin =~ m{:(.+?)/(.+)\.git});
+say "Origin $origin $repo $user";
+$repos->set_default_user_repo('fayland', 'perl-net-github');
 my @issues = $gh->issue->issues();
 
 foreach my $i (@issues) {
