@@ -38,12 +38,12 @@ COMMIT_MSG {
     my $commit_msg = read_file( $commit_msg_file );
     
     my @issues = ($commit_msg =~ /\#(\d+)/g);
+    my $addresses_issue = 0;
 
     if ( !@issues ) {
       say "This commit should address at least one issue";
       return 1;
     } else {
-      my $addresses_issue = 0;
       for my $i ( @issues ) {
 	if ( $issues_map{$i} ) {
 	  say "Addresses issue $i: $issues_map{$i}";
@@ -53,9 +53,9 @@ COMMIT_MSG {
 	}
 	say "Correct $addresses_issue";
       }
-      return $addresses_issue;
     }
 
+    return $addresses_issue;
 };
 
 
