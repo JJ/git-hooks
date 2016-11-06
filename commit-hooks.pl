@@ -5,6 +5,8 @@ use warnings;
 
 use Git::Hooks;
 use Term::ANSIColor;
+use Net::GitHub;
+use Git::More;
 
 use File::Slurp::Tiny qw(read_file write_file);
 
@@ -58,5 +60,50 @@ PREPARE_COMMIT_MSG {
 	write_file( $commit_msg_fn, $commit_msg.$message );
     }
 };
+
+COMMIT_MSG {
+    my ($git, $commit_msg_file) = @_;
+
+    my $git_repo = Git::More->repository();
+    my $api_key = $git_repo->get_config( 'github','apikey' );
+    
+    my $gh = Net::GitHub->new(
+	version => 3,
+	access_token => $api_key
+	);
+    my $repos = $gh->repos;
+    my $origin = $git_repo->get_config( 'remote.origin','url' );
+    my ( $user, $repo ) = ($origin =~ m{:(.+?)/(.+)\.git});
+    my $issue = $gh->issue();
+    my @these_issues = $issue->repos_issues( $user, $repo, { state => 'open'} );
+    
+    my %issues_map;
+    for my $i ( @these_issues ) {
+	$issues_map{$i->{'number'}} = $i->{'title'};
+    }
+    
+    my $commit_msg = read_file( $commit_msg_file );
+    
+    my @issues = ($commit_msg =~ /\#(\d+)/g);
+
+    if ( !@issues ) {
+      say "This commit should address at least one issue";
+      return 0;
+    } else {
+      my $addresses_issue = 1;
+      for my $i ( @issues ) {
+    	if ( $issues_map{$i} ) {
+    	  say "Addresses issue $i: $issues_map{$i}";
+    	  $addresses_issue &&= 1;
+    	} else {
+    	  say "There is no issue $i";
+    	  $addresses_issue &&= 0;
+    	}
+      }
+      return $addresses_issue;
+    }
+};
+
+
 
 run_hook($0, @ARGV);
