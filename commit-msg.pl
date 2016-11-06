@@ -28,9 +28,9 @@ say "Origin $origin $repo $user";
 $repos->set_default_user_repo('fayland', 'perl-net-github');
 my @issues = $gh->issue->issues();
 
-foreach my $i (@issues) {
-  say Dumper($i);
-}
+# foreach my $i (@issues) {
+#   say Dumper($i);
+# }
 
 COMMIT_MSG {
     my ($git, $commit_msg_file) = @_;
