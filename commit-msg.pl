@@ -54,7 +54,7 @@ COMMIT_MSG {
       }
     }
     say "Final $addresses_issue";
-    return $addresses_issue;
+    return $addresses_issue != 0;
 };
 
 
