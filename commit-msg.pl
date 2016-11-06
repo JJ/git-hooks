@@ -57,5 +57,4 @@ COMMIT_MSG {
     }
 };
 
-
 run_hook($0, @ARGV);
