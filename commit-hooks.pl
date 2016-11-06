@@ -111,6 +111,7 @@ COMMIT_MSG {
     	  $addresses_issue &&= 0;
     	}
       }
+      say "∆∇";
       return $addresses_issue;
     }
 };
