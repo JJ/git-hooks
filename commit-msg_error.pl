@@ -7,6 +7,7 @@ use Git::Hooks;
 
 COMMIT_MSG {
     my ($git, $commit_msg_file) = @_;
+    print "Ready to fail\n";
     return 0;
 };
 
