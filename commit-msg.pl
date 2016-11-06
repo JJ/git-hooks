@@ -15,12 +15,14 @@ use v5.14;
 #Retrieve configuration
 my $git = Git::More->repository();
 my $api_key = $git->get_config( 'github','apikey' );
-say $api_key;
 
 my $gh = Net::GitHub->new(
     version => 3,
     access_token => $api_key
 );
+my @issues = $gh->issue->issues();
+
+say @issues;
 
 COMMIT_MSG {
     my ($git, $commit_msg_file) = @_;
