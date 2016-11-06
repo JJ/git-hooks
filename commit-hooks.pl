@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Git::Hooks;
+use Term::ANSIColor;
 
 use File::Slurp::Tiny qw(read_file write_file);
 
@@ -58,5 +59,4 @@ PREPARE_COMMIT_MSG {
     }
 };
 
-say join("\n",@ARGV);
 run_hook($0, @ARGV);
