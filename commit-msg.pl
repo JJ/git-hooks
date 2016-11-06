@@ -42,7 +42,7 @@ COMMIT_MSG {
 
     if ( !@issues ) {
       say "This commit should address at least one issue";
-      return 1;
+      return 0;
     } else {
       for my $i ( @issues ) {
 	if ( $issues_map{$i} ) {
@@ -55,7 +55,7 @@ COMMIT_MSG {
       }
     }
 
-    return ($addresses_issue eq 1);
+    return $addresses_issue;
 };
 
 
