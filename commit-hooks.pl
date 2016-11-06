@@ -24,7 +24,7 @@ sub fail {
 
 sub pass {
     my $message = shift;
-    return color("green")."✓ ".color("reset").$message;
+    return color("green")."✓ ".color("white").$message.color("reset");
 }
 
 PRE_COMMIT {
