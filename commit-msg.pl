@@ -35,7 +35,7 @@ for my $i ( @these_issues ) {
 COMMIT_MSG {
     my ($git, $commit_msg_file) = @_;
     
-    return 0;
+    return 1;
     # my $commit_msg = read_file( $commit_msg_file );
     
     # my @issues = ($commit_msg =~ /\#(\d+)/g);
