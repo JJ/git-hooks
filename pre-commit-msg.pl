@@ -14,6 +14,8 @@ my $repo = Git->repository();
 
 my $diff_output = $repo->command('diff-index', '--cached','-p','HEAD');
 
+say $diff_output;
+
 my @files_changed = ($diff_output =~ /\++\sb\/(\W+)/gs);
  
 say @files_changed;
